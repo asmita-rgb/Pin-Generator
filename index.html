@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-6">
                 <div class="input-section half-width">
-                    <input id="input-t" class="form-control" type="text">
+                    <input id="userInput" class="form-control" type="text">
                     <div class="numbers">
                         <div class="calc-body">
                             <div class="calc-button-row">
@@ -37,9 +37,9 @@
                               <div onclick="inputNumber(3)" class="button">3</div>
                             </div>
                             <div class="calc-button-row">
-                                <div id="clear" class="button"><</div>
+                                <div id="removeValue" class="button"><</div>
                                 <div onclick="inputNumber(0)" class="button">0</div>
-                                <div onclick="inputNumber(C)" class="button">C</div>
+                                <div id="clear-all" class="button">C</div>
                             </div>
                             <div>
                                 <button id="submitBtn" type="submit" class="submit-btn">Submit</button>
@@ -56,32 +56,30 @@
     </div>
 
     <script>
-        var star = "";
-        var total = "";
+        var generatedValue = "";
+        var userInputValue = "";
         // //Pin generate
         const generateBtn = document.getElementById("pin");
         generateBtn.addEventListener("click", function(){
             var pinGenerator = Math.floor(Math.random() * 10000);
             document.getElementById("input-text").value = pinGenerator;
-             star = document.getElementById("input-text").value;
-            // let userPin = "";
-            // document.getElementById("user-input").value = userPin;
+             generatedValue = document.getElementById("input-text").value;
         })
 
         //taking numbers
-             const inputValueNumber = document.getElementById("input-t");
+             const inputValueNumber = document.getElementById("userInput");
 
             function inputNumber(id){
                 if(inputValueNumber.value.length < 4){
                     inputValueNumber.value+=id.toString();
                 }
-                 total = inputValueNumber.value;
+                 userInputValue = inputValueNumber.value;
             }
 
             //submit button
              const submitBtn = document.getElementById("submitBtn");
              submitBtn.addEventListener("click", function(){
-                 if(star == total){
+                 if(generatedValue == userInputValue){
                      const matched = document.getElementById("matched");
                      matched.style.display = "block";
                  }
@@ -89,6 +87,21 @@
                     const noMatch = document.getElementById("no-match");
                      noMatch.style.display = "block";
                  }
+            })
+
+            //clear all
+            const clearAll = document.getElementById("clear-all");
+            clearAll.addEventListener("click", function(){
+                const removeAll = "";
+                document.getElementById("userInput").value = removeAll;
+            })
+
+            //remove element
+            const removeValue = document.getElementById("removeValue");
+            removeValue.addEventListener("click", function(){
+                 const text = document.getElementById("userInput").value;
+                 const removed = text.slice(0, -1);
+                 document.getElementById("userInput").value = removed;
             })
     </script>
 </body>
